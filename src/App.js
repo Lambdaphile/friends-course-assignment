@@ -96,9 +96,9 @@ export default function App() {
       <div className="task-description">
         <Markdown>{courseworkMd}</Markdown>
       </div>
-      <div>
+      <div className="form-container">
         <form className="form" onSubmit={handleSubmitRowCol}>
-          <label>
+          <label className="form-input">
             <span>m </span>
             <input
               value={rowCol.rows}
@@ -110,7 +110,7 @@ export default function App() {
               }
             />
           </label>
-          <label>
+          <label className="form-input">
             <span>n </span>
             <input
               value={rowCol.cols}
@@ -130,7 +130,13 @@ export default function App() {
         </form>
         <Modal show={rowCol.isSubmited}>
           <form className="matrix" onSubmit={handleSubmitMatrix}>
-            <div className="matrix-inputs">
+            <div
+              className="matrix-inputs"
+              style={{
+                gridTemplateRows: `repeat(${rowCol.rows}, 1fr)`,
+                gridTemplateColumns: `repeat(${rowCol.cols}, 1fr)`
+              }}
+            >
               {fp.times(
                 (i) =>
                   fp.times(

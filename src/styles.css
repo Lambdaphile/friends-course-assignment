@@ -28,19 +28,26 @@ body {
   text-align: left;
 }
 
+.form-container {
+  padding: 0.4em 0;
+}
+
 .form {
   display: flex;
-  justify-content: space-between;
-  width: 20rem;
+}
+
+.form-input {
+  margin-right: 1rem;
 }
 
 .modal {
   background-color: white;
   border: 1px solid;
-  height: 85%;
+  height: 65%;
   position: absolute;
   width: 85%;
   z-index: 1;
+  padding: 2rem;
 }
 
 .matrix {
@@ -49,6 +56,22 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.matrix-inputs {
+  height: 100%;
+  display: grid;
+}
+
+.matrix-inputs label {
+  height: 3rem;
+  width: 4rem;
+  margin: 1rem;
+}
+
+.matrix-inputs input {
+  height: 100%;
+  width: 100%;
 }
 
 .change-theme-btn {
@@ -65,7 +88,6 @@ body {
 }
 
 .change-theme-btn span {
-  position: relative;
-
   font-size: 18px;
+  position: relative;
 }
