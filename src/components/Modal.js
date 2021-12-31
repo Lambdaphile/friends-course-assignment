@@ -4,7 +4,7 @@ import useClickOutside from "../hooks/useClickOutside";
 
 import "../styles.css";
 
-export default function Modal({ children, show }) {
+export default function Modal({ children, show, onClose }) {
   const clickRef = React.useRef();
   const [clickOutside, setClickOutside] = React.useState(false);
 

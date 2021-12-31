@@ -26,6 +26,7 @@ function createEmptyMatrix(rowCol) {
 }
 
 export default function App() {
+  const [showModal, setShowModal] = React.useState(false);
   const [isLightMode, setIsLightMode] = React.useState(true);
   const courseworkMd = useMarkdown(coursework);
   const [rowCol, dispatchRowCol] = React.useReducer(
@@ -42,11 +43,12 @@ export default function App() {
 
     dispatchMatrix({
       type: "setMatrix",
-      payload: { matrix: createEmptyMatrix(rowCol) }
+      payload: { values: createEmptyMatrix(rowCol) }
     });
     dispatchRowCol({
       type: "submit"
     });
+    setShowModal(true);
   }
 
   function handleSubmitMatrix(event) {
@@ -68,7 +70,7 @@ export default function App() {
     }, []);
   }
 
-  function isMatrixFilled() {
+  function isMatrixFilled(matrix) {
     console.log("matrix", matrix.values);
     const sum = fp.reduce(
       (acc, curr) =>
@@ -128,13 +130,13 @@ export default function App() {
             Въведи...
           </button>
         </form>
-        <Modal show={rowCol.isSubmited}>
+        <Modal show={rowCol.isSubmited && showModal}>
           <form className="matrix" onSubmit={handleSubmitMatrix}>
             <div
               className="matrix-inputs"
               style={{
-                gridTemplateRows: `repeat(${rowCol.rows}, 1fr)`,
-                gridTemplateColumns: `repeat(${rowCol.cols}, 1fr)`
+                gridTemplateRows: `repeat(${rowCol.rows}, 80px)`,
+                gridTemplateColumns: `repeat(${rowCol.cols}, 80px)`
               }}
             >
               {fp.times(
@@ -158,11 +160,19 @@ export default function App() {
               )}
             </div>
             <button
-              disabled={isMatrixFilled()}
+              onClick={() => setShowModal(false)}
               className="matrix-submit-btn"
               type="submit"
             >
-              submit
+              Close
+            </button>
+            <button
+              onClick={() => setShowModal(false)}
+              disabled={isMatrixFilled(matrix)}
+              className="matrix-submit-btn"
+              type="submit"
+            >
+              Submit
             </button>
           </form>
         </Modal>

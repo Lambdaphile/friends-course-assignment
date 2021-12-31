@@ -3,7 +3,7 @@ import fp from "lodash/fp";
 export default function matrixReducer(state, action) {
   switch (action.type) {
     case "setMatrix":
-      return { ...state, values: action.payload.matrix };
+      return { ...state, values: action.payload.values };
     case "setMatrixValue":
       return {
         ...state,
@@ -16,7 +16,7 @@ export default function matrixReducer(state, action) {
                   : n,
               row
             ),
-          state
+          state.values
         )
       };
     case "submit":

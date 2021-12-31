@@ -61,12 +61,11 @@ body {
 .matrix-inputs {
   height: 100%;
   display: grid;
+  grid-row-gap: 1rem;
+  grid-column-gap: 1rem;
 }
 
 .matrix-inputs label {
-  height: 3rem;
-  width: 4rem;
-  margin: 1rem;
 }
 
 .matrix-inputs input {
