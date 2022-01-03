@@ -58,30 +58,46 @@ export default function App() {
     console.log(matrix);
   }
 
-  function convertToText() {
-    return fp.reduce((acc, curr, i) => {
-      if (i === 0) {
-        return `averageArr: [${curr}, `;
-      } else if (i < rows - 1) {
-        return `${curr}, `;
-      } else {
-        return `${curr}]`;
-      }
-    }, []);
+  function convertToText(matrixValues) {
+    fp.reduce = fp.reduce.convert({ cap: false });
+
+    const average = fp.reduce(
+      (acc, curr, _, arr) => [
+        ...acc,
+        fp.reduce((acc, curr) => (acc += curr), 0, curr) / arr.length
+      ],
+      [],
+      matrixValues
+    );
+
+    return fp.reduce(
+      (acc, curr, i, arr) => {
+        if (i === 0) {
+          return `averageArr: [${curr}, `;
+        } else if (i < arr.length - 1) {
+          return `${acc} ${curr}, `;
+        } else {
+          return `${acc} ${curr}]`;
+        }
+      },
+      "",
+      average
+    );
   }
 
-  function isMatrixFilled(matrix) {
+  function isMatrixNotFilled(matrix) {
     console.log("matrix", matrix.values);
     const sum = fp.reduce(
       (acc, curr) =>
-        acc + fp.reduce((acc, curr) => (curr !== "" ? acc + 1 : acc), 0, curr),
+        acc +
+        fp.reduce((acc, curr) => (curr !== null ? acc + 1 : acc), 0, curr),
       0,
       matrix.values
     );
 
     console.log("sum", sum);
 
-    return sum === rowCol.rows * rowCol.cols;
+    return sum !== rowCol.rows * rowCol.cols;
   }
 
   return (
@@ -167,8 +183,8 @@ export default function App() {
               Close
             </button>
             <button
-              onClick={() => setShowModal(false)}
-              disabled={isMatrixFilled(matrix)}
+              // onClick={() => setShowModal(false)}
+              disabled={isMatrixNotFilled(matrix)}
               className="matrix-submit-btn"
               type="submit"
             >
@@ -176,7 +192,7 @@ export default function App() {
             </button>
           </form>
         </Modal>
-        {matrix.isSubmited && <p>{convertToText(matrix)}</p>}
+        {matrix.isSubmited && <p>{convertToText(matrix.values)}</p>}
       </div>
     </div>
   );
