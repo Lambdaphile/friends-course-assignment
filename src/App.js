@@ -146,7 +146,7 @@ export default function App() {
             Въведи...
           </button>
         </form>
-        <Modal show={rowCol.isSubmited && showModal}>
+        <Modal show={showModal} onClose={() => setShowModal(false)}>
           <form className="matrix" onSubmit={handleSubmitMatrix}>
             <div
               className="matrix-inputs"

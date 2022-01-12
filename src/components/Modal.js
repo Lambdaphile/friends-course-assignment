@@ -9,6 +9,7 @@ export default function Modal({ children, show, onClose }) {
   const [clickOutside, setClickOutside] = React.useState(false);
 
   function onClickOutside() {
+    onClose();
     setClickOutside(!clickOutside);
   }
 
